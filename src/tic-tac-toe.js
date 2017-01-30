@@ -1,34 +1,68 @@
 class TicTacToe {
     constructor() {
-
+        this.check = false;
+        this.player = 'x';
+        this.matrix = [[null, null, null], [null, null, null], [null, null, null]];
     }
 
-    getCurrentPlayerSymbol() {
-
+    getCurrentPlayerSymbol() { //should return `x` or `o`
+        if (this.check == true){
+            if (this.player == 'x') this.player = 'o';
+            else
+                if (this.player == 'o') this.player = 'x';
+            return this.player;
+        } else
+            if (this.check == false)
+                return this.player;
     }
 
-    nextTurn(rowIndex, columnIndex) {
-
+    nextTurn(rowIndex, columnIndex) { //should properly update class state (change current player, update marks storage etc.)
+        if (this.matrix[rowIndex][columnIndex] == null) {
+            this.check = true;
+            this.matrix[rowIndex][columnIndex] = this.getCurrentPlayerSymbol();
+        } else {
+            this.check = false;
+        }
     }
 
-    isFinished() {
-
+    isFinished() { // should return true if game is finished (e.g. there is a winner or it is a draw)
+        if (this.getWinner() != null) return true;
+        else
+            if (this.noMoreTurns() == true) return true;
+        else
+            return false;
     }
 
-    getWinner() {
-
+    getWinner() { // should return winner symbol (`x` or `o`) or null if there is no winner yet
+        if ((this.matrix[0][0] == this.matrix[0][1] == this.matrix[0][2] != null) ||
+            (this.matrix[1][0] == this.matrix[1][1] == this.matrix[1][2] != null) ||
+            (this.matrix[2][0] == this.matrix[2][1] == this.matrix[2][2] != null)) return this.player;
+        else
+            if ((this.matrix[0][0] == this.matrix[1][0] == this.matrix[2][0] != null) ||
+                (this.matrix[0][1] == this.matrix[1][1] == this.matrix[2][1] != null) ||
+                (this.matrix[0][2] == this.matrix[1][2] == this.matrix[2][2] != null)) return this.player;
+        else
+            if ((this.matrix[0][0] == this.matrix[1][1] == this.matrix[2][2] != null) ||
+                (this.matrix[0][2] == this.matrix[1][1] == this.matrix[2][0] != null)) return this.player;
+        else
+            return false;
     }
 
-    noMoreTurns() {
-
+    noMoreTurns() { // should return true if there is no more fields to place a `x` or `o`
+        for (element in this.matrix){
+            if (element == null) return false;
+        }
+        return true;
     }
 
-    isDraw() {
-
+    isDraw() { // should return true if there is no more turns and no winner
+        if ((this.noMoreTurns() == true) && (this.getWinner() == null)) return true;
+        else
+            return false;
     }
 
-    getFieldValue(rowIndex, colIndex) {
-
+    getFieldValue(rowIndex, colIndex) { // should return `matrix[row][col]` value (if any) or `null`
+        return this.matrix[rowIndex][colIndex];
     }
 }
 
