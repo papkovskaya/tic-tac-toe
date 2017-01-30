@@ -12,7 +12,7 @@ class TicTacToe {
     nextTurn(rowIndex, columnIndex) { //should properly update class state (change current player, update marks storage etc.)
         if (this.matrix[rowIndex][columnIndex] == null) {
             this.check = true;
-            this.matrix[rowIndex][columnIndex] = this.player();
+            this.matrix[rowIndex][columnIndex] = this.player;
             if (this.player == 'x') this.player = 'o';
             else
             if (this.player == 'o') this.player = 'x';
