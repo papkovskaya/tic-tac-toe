@@ -6,20 +6,16 @@ class TicTacToe {
     }
 
     getCurrentPlayerSymbol() { //should return `x` or `o`
-        if (this.check == true){
-            if (this.player == 'x') this.player = 'o';
-            else
-                if (this.player == 'o') this.player = 'x';
-            return this.player;
-        } else
-            if (this.check == false)
-                return this.player;
+        return this.player;
     }
 
     nextTurn(rowIndex, columnIndex) { //should properly update class state (change current player, update marks storage etc.)
         if (this.matrix[rowIndex][columnIndex] == null) {
             this.check = true;
-            this.matrix[rowIndex][columnIndex] = this.getCurrentPlayerSymbol();
+            this.matrix[rowIndex][columnIndex] = this.player();
+            if (this.player == 'x') this.player = 'o';
+            else
+            if (this.player == 'o') this.player = 'x';
         } else {
             this.check = false;
         }
@@ -45,7 +41,7 @@ class TicTacToe {
             if ((this.matrix[0][0] == this.matrix[1][1] == this.matrix[2][2] != null) ||
                 (this.matrix[0][2] == this.matrix[1][1] == this.matrix[2][0] != null)) return this.player;
         else
-            return false;
+            return null;
     }
 
     noMoreTurns() { // should return true if there is no more fields to place a `x` or `o`
